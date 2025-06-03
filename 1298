@@ -1,0 +1,37 @@
+
+class Solution {
+public:
+    int maxCandies(vector<int>& status, vector<int>& candies, vector<vector<int>>& keys, vector<vector<int>>& containedBoxes, vector<int>& initialBoxes) {
+        queue<int>q;
+        unordered_set<int>seen;
+        int c=0;
+
+        for (auto it:initialBoxes){
+            if (status[it]) q.push(it);
+            else seen.insert(it);
+        }
+
+        while(!q.empty()){
+            auto it=q.front();
+            q.pop();
+            c+=candies[it];
+
+            for (auto k:keys[it]){
+                 status[k]=1;
+                 if (seen.find(k)!=seen.end()){
+                    q.push(k);
+                    seen.erase(k);
+                 }
+            }
+
+            for (auto box:containedBoxes[it]){
+                if (status[box]) q.push(box);
+                else seen.insert(box);
+            }
+        }
+        return c;
+    }
+};
+
+TC:(N)
+SC:(N)
