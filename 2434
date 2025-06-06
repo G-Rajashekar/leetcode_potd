@@ -1,0 +1,36 @@
+
+class Solution {
+public:
+    string robotWithString(string s) {
+        int n=s.length();
+        vector<char>rightMin(n);
+        rightMin[n-1]=s[n-1];
+
+        for (int i=n-2;i>=0;i--){
+            rightMin[i]=min(rightMin[i+1],s[i]);
+        }
+
+        string t="";
+        string paper="";
+
+        for (int i=0;i<n;i++){
+            char minChar=i+1<n?rightMin[i+1]:s[i];
+            t.push_back(s[i]);
+
+            while(!t.empty() && t.back()<=minChar){
+                paper+=t.back();
+                t.pop_back();
+            }
+        }
+
+          while(!t.empty()){
+                paper+=t.back();
+                t.pop_back();
+            }
+
+            return paper;
+    }
+};
+
+TC:O(N)
+SC:O(N)

@@ -1,0 +1,44 @@
+
+class Solution {
+public:
+    string smallestEquivalentString(string s1, string s2, string baseStr) {
+        int n=s1.length();
+
+        vector<vector<char>>adj(26);
+
+        for (int i=0;i<n;i++){
+            char u=s1[i];
+            char v=s2[i];
+
+            adj[u-'a'].push_back(v);
+            adj[v-'a'].push_back(u);
+        }
+
+        string res="";
+
+        for (auto ch:baseStr){
+            char minChar=ch;
+            vector<int>vis(26,0);
+            dfs(adj,vis,ch,minChar);
+            res.push_back(minChar);
+        }
+
+        return res;
+    }
+
+    void dfs(vector<vector<char>>&adj,vector<int>&vis,char ch,char &minChar){
+        vis[ch-'a']=1;
+        minChar=min(minChar,ch);
+
+        for (auto nei:adj[ch-'a']){
+            if (!vis[nei-'a']){
+                dfs(adj,vis,nei,minChar);
+            }
+        }
+
+        return;
+    }
+};
+
+TC:O(n*n)
+SC:O(26+n)
