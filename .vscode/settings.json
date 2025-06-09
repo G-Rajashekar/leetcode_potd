@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "440": "cpp",
+        "*.embeddedhtml": "html"
+    }
+}

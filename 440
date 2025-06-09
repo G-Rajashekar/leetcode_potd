@@ -1,0 +1,37 @@
+
+class Solution {
+public:
+    int findKthNumber(int n, int k) {
+        int cur=1;
+        k-=1;
+
+        while(k>0){
+
+            int cnt=helper(cur,cur+1,n);
+            if (cnt<=k){
+                k-=cnt;
+                cur=cur+1;
+            }
+            else{
+                k-=1;
+                cur*=10;
+            }
+        }
+        return cur;
+    }
+
+    int helper(long cur,long next,int n){
+        int cnt=0;
+
+        while(cur<=n){
+            cnt+=(next-cur);
+            cur*=10;
+            next*=10;
+            next=min(next,long(n+1));
+        }
+        return cnt;
+    }
+};
+
+TC:O((log)^2)
+SC:O(1)
