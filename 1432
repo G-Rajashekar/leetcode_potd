@@ -1,0 +1,55 @@
+
+class Solution {
+public:
+    int maxDiff(int num) {
+        string s=to_string(num);
+
+        char maxReplace=' ';
+        char minReplace=' ';
+        char charToReplace=' ';
+        string maxi="";
+        string mini="";
+
+        if (s[0]!='1'){
+            minReplace=s[0];
+            charToReplace='1';
+        }
+        else{
+            charToReplace='0';
+            for (int i=1;i<s.length();i++){
+                if (s[i]!='0' && minReplace==' ' && s[i]!='1'){
+                    minReplace=s[i];
+                    break;
+                }
+            }
+        }
+
+        for (int i=0;i<s.length();i++){
+            if (s[i]!='9' && maxReplace==' '){
+                maxReplace=s[i];
+                break;
+            }
+        }
+
+        for (int i=0;i<s.length();i++){
+            if (s[i]==minReplace){
+                mini.push_back(charToReplace);
+            }
+            else{
+                mini.push_back(s[i]);
+            }
+
+            if (s[i]==maxReplace){
+                maxi.push_back('9');
+            }
+            else{
+                maxi.push_back(s[i]);
+            }
+        }
+
+        return stoi(maxi)-stoi(mini);
+    }
+};
+
+TC:O(N)
+SC:O(N)
