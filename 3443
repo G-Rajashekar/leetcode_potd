@@ -1,0 +1,41 @@
+
+class Solution {
+public:
+    int maxDistance(string str, int k) {
+        int ans=0;
+        int s=0;
+        int n=0;
+        int e=0;
+        int w=0;
+        int temp=k;
+        for (auto d:str){
+            if (d=='N') n++;
+            else if (d=='S') s++;
+            else if (d=='E')e++;
+            else w++;
+            k=temp;
+            int maxD,minD,chaD;
+            int dis=0;
+            maxD=max(n,s);
+            minD=min(n,s);
+            chaD=min(k,minD);
+            maxD+=chaD;
+            minD-=chaD;
+            dis+=maxD-minD;
+            k-=chaD;
+
+            maxD=max(e,w);
+            minD=min(e,w);
+            chaD=min(k,minD);
+            maxD+=chaD;
+            minD-=chaD;
+            dis+=maxD-minD;
+
+            ans=max(ans,dis);
+        }
+        return ans;
+    }
+};
+
+TC:O(n)
+SC:O(1)
