@@ -1,0 +1,37 @@
+
+class Solution {
+public:
+    int minimumDeletions(string word, int k) {
+        unordered_map<int,int>mp;
+
+        for (auto c:word){
+            mp[c-'a']++;
+        }
+        vector<int>freq;
+
+        for (auto it:mp){
+            freq.push_back(it.second);
+        }
+
+        int ans=INT_MAX;
+
+        for (int i=0;i<freq.size();i++){
+            int curr=freq[i];
+            int del=0;
+
+            for (int j=0;j<freq.size();j++){
+                if (i==j) continue;
+
+                if (freq[j]<curr) del+=freq[j];
+                else if(abs(freq[j]-curr)>k){
+                    del+=abs(freq[j]-curr-k);
+                }
+            }
+            ans=min(ans,del);
+        }
+        return ans;
+    }
+};  
+
+TC:O(N)
+SC:O(1)
